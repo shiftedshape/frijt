@@ -6,7 +6,7 @@ opgeleverd: 2025-11-21
 uitgelicht: true
 foto: /uploads/renovatie-keuken.jpg
 foto_alt: Witte keuken met strakke wanden en plafond na renovatie
-foto_uitsnede: boven
+foto_uitsnede: midden
 samenvatting: Oude structuurplafonds vervangen en scheuren hersteld, alles
   sausklaar opgeleverd.
 omschrijving: >-
