@@ -21,9 +21,10 @@ werkzaamheden:
   - Scheuren uitgehakt en gewapend hersteld
   - Wanden en plafonds sausklaar
   - Rond de nieuwe keuken netjes afgewerkt
+  - Extra werk (test)
 oppervlakte: 110 m²
 afwerking: Nieuwe plafonds · sausklaar
-doorlooptijd: 10 werkdagen
+doorlooptijd: 3 werkdagen
 opdrachtgever: Particulier
 quote:
   tekst: Je ziet niet meer dat het huis vijftig jaar oud is.
