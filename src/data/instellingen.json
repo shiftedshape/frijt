@@ -20,7 +20,10 @@
       "waarde": "30+",
       "label": "tevreden klanten"
     },
-    {}
+    {
+      "waarde": "4+",
+      "label": "Vakspecialisten"
+    }
   ],
   "intro_tekst": "Frijters Afbouw maakt van kale muren en ruwe plafonds strak afgewerkte ruimtes die klaar zijn om in te wonen en te werken.",
   "intro_tekst_vervolg": "Eén aanspreekpunt van opname tot oplevering, met een heldere prijs en planning vooraf en een werkplek die we schoon achterlaten.",
