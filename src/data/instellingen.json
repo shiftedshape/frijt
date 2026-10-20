@@ -3,11 +3,11 @@
   "telefoon": "06 – 12 34 56 78",
   "email": "info@frijtersafbouw.nl",
   "vestigingsplaats": "Breda",
-  "hero_label": "Afbouw specialist in Breda",
+  "hero_label": "Afbouw specialist uit Breda",
   "hero_titel": "Sterk in",
-  "hero_titel_vervolg": "afbouw.",
-  "hero_tekst": "Stucwerk, spuitwerk, wanden en plafonds voor woningen, verbouwingen en bedrijfspanden in de regio Breda. Eén vaste ploeg, een heldere planning en een opgeruimde werkplek.",
-  "hero_foto": "/uploads/betonlook-keuken.jpg",
+  "hero_titel_vervolg": "afbouw projecten.",
+  "hero_tekst": "Van stucwerk en spuitwerk tot wanden, vloeren en plafonds voor woningen, verbouwingen, renovatieprojecten en bedrijfspanden in de regio Breda. Met een vast team vakmannen, een heldere planning en oog voor detail zorgen we altijd voor een strak eindresultaat.",
+  "hero_foto": "/uploads/lamellenplafond.jpg",
   "cijfers": [
     {
       "waarde": "45+",
@@ -23,12 +23,12 @@
     },
     {}
   ],
-  "intro_tekst": "Frijters Afbouw maakt van kale muren en ruwe plafonds ruimtes die klaar zijn om in te wonen en te werken.",
-  "intro_tekst_vervolg": "Eén aanspreekpunt van opname tot oplevering, een vaste prijs vooraf en een werkplek die we elke dag schoon achterlaten.",
+  "intro_tekst": "Frijters Afbouw maakt van kale muren en ruwe plafonds strak afgewerkte ruimtes die klaar zijn om in te wonen en te werken.",
+  "intro_tekst_vervolg": "Eén aanspreekpunt van opname tot oplevering, met een heldere prijs en planning vooraf en een werkplek die we schoon achterlaten.",
   "beloftes": [
-    "Vaste prijs, geen meerwerk-verrassingen",
+    "Vaste prijs vooraf besproken",
     "Eigen vakmensen, geen wisselende ploegen",
-    "Vloeren en kozijnen afgeplakt"
+    "Vloeren en kozijnen afgeplakt, secuur opgeleverd"
   ],
   "werkgebied": [
     "Breda",
