@@ -27,7 +27,9 @@ afwerking: Nieuwe plafonds · sausklaar
 doorlooptijd: 3 werkdagen
 opdrachtgever: Particulier
 extra_fotos:
-  - /uploads/pexels-creative-vix-7283.jpg
+  - /uploads/pexels-artbovich-6508354.jpg
+  - /uploads/lamellenplafond.jpg
+  - /uploads/vide-trappenhuis.jpg
 quote:
   tekst: Je ziet niet meer dat het huis vijftig jaar oud is.
   naam: Annelies, Oosterhout
