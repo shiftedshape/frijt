@@ -20,9 +20,9 @@ werkzaamheden:
   - Sparing met lichtvoute boven de zithoek
   - Kokers rond leidingen weggewerkt
   - Wanden en plafond sausklaar, Q3
-oppervlakte: 95 m²
+oppervlakte: 94 m²
 afwerking: Verlaagd plafond · lichtvoute
-doorlooptijd: 4 werkdagen
+doorlooptijd: 3-4 werkdagen
 opdrachtgever: Particulier
 quote:
   tekst: Het licht in de woonkamer is totaal anders geworden.
