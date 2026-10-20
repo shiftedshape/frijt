@@ -1,0 +1,289 @@
+# Pages CMS-configuratie voor Frijters Afbouw
+# Documentatie: https://pagescms.org/docs/configuration/
+
+media:
+  input: public/uploads
+  output: /uploads
+  categories: [image]
+
+content:
+  # ---------- Projecten: één bestand per project ----------
+  - name: projecten
+    label: Projecten
+    type: collection
+    path: src/content/projecten
+    format: yaml-frontmatter
+    filename: "{titel}.md"
+    view:
+      fields: [titel, plaats, opgeleverd]
+      primary: titel
+      sort: [opgeleverd, titel]
+      default:
+        sort: opgeleverd
+        order: desc
+    fields:
+      - name: titel
+        label: Titel
+        type: string
+        required: true
+        description: "Bijvoorbeeld: Benedenwoning in Ginneken"
+      - name: plaats
+        label: Plaats
+        type: string
+        required: true
+      - name: categorie
+        label: Soort werk
+        type: select
+        required: true
+        options:
+          values:
+            - name: stucwerk
+              label: Stucwerk
+            - name: spuitwerk
+              label: Spuitwerk
+            - name: wanden
+              label: Wanden & plafonds
+            - name: sierpleister
+              label: Sierpleister
+            - name: renovatie
+              label: Renovatie
+      - name: opgeleverd
+        label: Opgeleverd op
+        type: date
+        required: true
+        description: Nieuwste projecten staan bovenaan de site.
+      - name: uitgelicht
+        label: Uitlichten op de homepage
+        type: boolean
+        description: Uitgelichte projecten verschijnen in het kaartje in de grote foto bovenaan.
+      - name: foto
+        label: Hoofdfoto
+        type: image
+        required: true
+      - name: foto_alt
+        label: Korte beschrijving van de foto
+        type: string
+        description: Voor blinde en slechtziende bezoekers en voor Google. Bijvoorbeeld "Woonkamer met strak gestuct plafond".
+      - name: foto_uitsnede
+        label: Uitsnede van de foto
+        type: select
+        description: Welk deel van de foto zichtbaar blijft in de kaartjes.
+        options:
+          values:
+            - name: midden
+              label: Midden
+            - name: boven
+              label: Bovenkant
+            - name: onder
+              label: Onderkant
+      - name: samenvatting
+        label: Samenvatting (één zin)
+        type: text
+        required: true
+      - name: omschrijving
+        label: Omschrijving
+        type: text
+        description: Laat een lege regel tussen alinea's.
+      - name: werkzaamheden
+        label: Werkzaamheden
+        type: string
+        list: true
+      - name: oppervlakte
+        label: Oppervlakte
+        type: string
+        description: "Bijvoorbeeld: 95 m²"
+      - name: afwerking
+        label: Afwerking
+        type: string
+        description: "Bijvoorbeeld: Sausklaar · Q3"
+      - name: doorlooptijd
+        label: Doorlooptijd
+        type: string
+        description: "Bijvoorbeeld: 8 werkdagen"
+      - name: opdrachtgever
+        label: Opdrachtgever
+        type: string
+        description: "Bijvoorbeeld: Particulier, Aannemer"
+      - name: extra_fotos
+        label: Extra foto's
+        type: image
+        options:
+          multiple:
+            max: 12
+      - name: quote
+        label: Reactie van de klant
+        type: object
+        fields:
+          - name: tekst
+            label: Reactie
+            type: text
+          - name: naam
+            label: Naam en plaats
+            type: string
+
+  # ---------- Bedrijfsgegevens en homepage ----------
+  - name: instellingen
+    label: Bedrijfsgegevens & homepage
+    type: file
+    path: src/data/instellingen.json
+    format: json
+    fields:
+      - name: bedrijfsnaam
+        label: Bedrijfsnaam
+        type: string
+      - name: telefoon
+        label: Telefoonnummer
+        type: string
+      - name: email
+        label: E-mailadres
+        type: string
+      - name: vestigingsplaats
+        label: Vestigingsplaats
+        type: string
+      - name: kvk
+        label: KvK-nummer
+        type: string
+      - name: hero_label
+        label: Label boven de kop
+        type: string
+      - name: hero_titel
+        label: Kop (vet deel)
+        type: string
+      - name: hero_titel_vervolg
+        label: Kop (licht deel)
+        type: string
+      - name: hero_tekst
+        label: Tekst onder de kop
+        type: text
+      - name: hero_foto
+        label: Grote foto bovenaan
+        type: image
+      - name: cijfers
+        label: Kerncijfers onder de grote foto
+        type: object
+        list: true
+        fields:
+          - name: waarde
+            label: Cijfer
+            type: string
+          - name: label
+            label: Omschrijving
+            type: string
+      - name: intro_tekst
+        label: Introductie (donker deel)
+        type: text
+      - name: intro_tekst_vervolg
+        label: Introductie (grijs deel)
+        type: text
+      - name: beloftes
+        label: Beloftes
+        type: string
+        list: true
+      - name: werkgebied
+        label: Werkgebied (plaatsen)
+        type: string
+        list: true
+      - name: cta_foto
+        label: Foto in de afsluitende banner
+        type: image
+
+  # ---------- Diensten ----------
+  - name: diensten
+    label: Diensten
+    type: file
+    path: src/data/diensten.json
+    format: json
+    fields:
+      - name: items
+        label: Diensten
+        type: object
+        list: true
+        fields:
+          - name: naam
+            label: Naam
+            type: string
+          - name: formulier_keuze
+            label: Aanvinken in offerteformulier
+            type: select
+            options:
+              values: [Stucwerk, Spuitwerk, Wanden & plafonds, Sierpleister, Renovatie]
+          - name: tekst
+            label: Omschrijving
+            type: text
+          - name: termen
+            label: Trefwoorden
+            type: string
+            list: true
+
+  # ---------- Werkwijze ----------
+  - name: werkwijze
+    label: Werkwijze
+    type: file
+    path: src/data/werkwijze.json
+    format: json
+    fields:
+      - name: stappen
+        label: Stappen
+        type: object
+        list: true
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: tekst
+            label: Uitleg
+            type: text
+          - name: kernzin
+            label: Kernzin op de foto
+            type: string
+          - name: foto
+            label: Foto
+            type: image
+
+  # ---------- Reviews ----------
+  - name: reviews
+    label: Reviews
+    type: file
+    path: src/data/reviews.json
+    format: json
+    fields:
+      - name: score
+        label: Gemiddeld cijfer
+        type: string
+      - name: aantal
+        label: Aantal beoordelingen
+        type: string
+        description: "Bijvoorbeeld: 126 beoordelingen"
+      - name: items
+        label: Reviews
+        type: object
+        list: true
+        fields:
+          - name: tekst
+            label: Review
+            type: text
+          - name: naam
+            label: Naam
+            type: string
+          - name: project
+            label: Plaats en soort klus
+            type: string
+
+  # ---------- Veelgestelde vragen ----------
+  - name: faq
+    label: Veelgestelde vragen
+    type: file
+    path: src/data/faq.json
+    format: json
+    fields:
+      - name: items
+        label: Vragen
+        type: object
+        list: true
+        fields:
+          - name: vraag
+            label: Vraag
+            type: string
+          - name: antwoord
+            label: Antwoord
+            type: text
