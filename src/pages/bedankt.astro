@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import site from '../data/instellingen.json';
+---
+<Base title="Bedankt voor je aanvraag" hideMobileCta>
+  <section class="section wrap page-top narrow">
+    <div class="done">
+      <div class="ok"><Icon name="check" /></div>
+      <h1 class="h2">Bedankt, je aanvraag is binnen</h1>
+      <p class="lead">We bellen je binnen 2 werkdagen om de klus door te nemen en een opname in te plannen. Haast? Bel ons op {site.telefoon}.</p>
+      <div><a class="btn btn-ghost" href="/projecten/">Bekijk onze projecten <Icon name="arrow" /></a></div>
+    </div>
+  </section>
+</Base>

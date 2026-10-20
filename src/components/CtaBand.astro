@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+import site from '../data/instellingen.json';
+import { fotoUrl } from '../lib';
+---
+<section class="wrap" aria-labelledby="cta-title">
+  <div class="cta-band">
+    <img class="cover" src={fotoUrl(site.cta_foto)} alt="" loading="lazy" />
+    <h2 id="cta-title">Klaar voor strakke muren?</h2>
+    <p>Plan een gratis opname in {site.vestigingsplaats} en omgeving. Je ontvangt een offerte met vaste prijs en planning, zonder verplichtingen.</p>
+    <a class="btn btn-primary" href="/#offerte">Vrijblijvende offerte aanvragen <Icon name="arrow" /></a>
+  </div>
+</section>

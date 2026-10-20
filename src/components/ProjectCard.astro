@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import { CATEGORIEEN, UITSNEDE, fotoUrl, type Project } from '../lib';
+interface Props { project: Project }
+const { project } = Astro.props;
+const p = project.data;
+---
+<a class="pcard" href={`/projecten/${project.id}/`} data-cat={p.categorie}>
+  <div class="ph">
+    <img class="cover" src={fotoUrl(p.foto)} alt={p.foto_alt} loading="lazy" decoding="async" style={`object-position:${UITSNEDE[p.foto_uitsnede]}`} />
+    <span class="tag">{CATEGORIEEN[p.categorie]}</span>
+    <span class="open"><Icon name="arrow" /></span>
+  </div>
+  <div class="pmeta mono">
+    <span><Icon name="pin" />{p.plaats}</span>
+    {p.oppervlakte && <span><Icon name="area" />{p.oppervlakte}</span>}
+    {p.doorlooptijd && <span><Icon name="clock" />{p.doorlooptijd}</span>}
+  </div>
+  <h3>{p.titel}</h3>
+  <p>{p.samenvatting}</p>
+  {p.afwerking && <span class="spec">{p.afwerking}</span>}
+</a>

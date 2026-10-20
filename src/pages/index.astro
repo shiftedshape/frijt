@@ -1,0 +1,293 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import OfferteForm from '../components/OfferteForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import site from '../data/instellingen.json';
+import diensten from '../data/diensten.json';
+import werkwijze from '../data/werkwijze.json';
+import reviews from '../data/reviews.json';
+import faq from '../data/faq.json';
+import { alleProjecten, UITSNEDE, fotoUrl } from '../lib';
+
+const projecten = await alleProjecten();
+const opHome = projecten.slice(0, 6);
+let uitgelicht = projecten.filter((p) => p.data.uitgelicht);
+if (uitgelicht.length === 0) uitgelicht = projecten.slice(0, 4);
+const heroData = uitgelicht.map((p) => ({
+  url: `/projecten/${p.id}/`,
+  titel: p.data.titel,
+  sub: [p.data.oppervlakte, p.data.plaats].filter(Boolean).join(' · '),
+  foto: fotoUrl(p.data.foto),
+  pos: UITSNEDE[p.data.foto_uitsnede],
+}));
+const eerste = heroData[0];
+const stappen = werkwijze.stappen;
+---
+<Base>
+  <!-- HERO -->
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero-frame">
+      <img class="cover" src={fotoUrl(site.hero_foto)} alt="" fetchpriority="high" />
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hero-tag"><i></i>{site.hero_label}</span>
+          <h1 id="hero-title">{site.hero_titel} <em>{site.hero_titel_vervolg}</em></h1>
+          <p>{site.hero_tekst}</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#offerte">Vrijblijvende offerte aanvragen <Icon name="arrow" /></a>
+            <a class="btn btn-glass" href="#projecten">Bekijk projecten</a>
+          </div>
+        </div>
+        {eerste && (
+          <aside class="hero-card" aria-label="Uitgelicht project" data-projects={JSON.stringify(heroData)}>
+            <a class="thumb" id="hcLink" href={eerste.url} aria-label={`Bekijk project: ${eerste.titel}`}>
+              <img class="cover" id="hcImg" src={eerste.foto} alt="" style={`object-position:${eerste.pos}`} />
+            </a>
+            <div class="hc-meta">
+              <div><strong id="hcTitle">{eerste.titel}</strong><small id="hcSub">{eerste.sub}</small></div>
+              {heroData.length > 1 && (
+                <div class="hc-arrows">
+                  <button class="round" id="hcPrev" aria-label="Vorig project"><Icon name="left" /></button>
+                  <button class="round" id="hcNext" aria-label="Volgend project"><Icon name="right" /></button>
+                </div>
+              )}
+            </div>
+          </aside>
+        )}
+      </div>
+    </div>
+    <div class="hero-stats">
+      {site.cijfers.map((c) => <div class="stat"><b>{c.waarde}</b><span>{c.label}</span></div>)}
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section wrap" aria-labelledby="intro-label">
+    <div class="intro">
+      <span class="eyebrow" id="intro-label">Over Frijters</span>
+      <div>
+        <p class="intro-text">{site.intro_tekst} <mark>{site.intro_tekst_vervolg}</mark></p>
+        <div class="intro-points">
+          {site.beloftes.map((b) => <span class="pill"><Icon name="check" />{b}</span>)}
+        </div>
+        <div class="area">
+          <h3><Icon name="pin" />Werkgebied</h3>
+          <ul>{site.werkgebied.map((plaats, i) => <li class={i === 0 ? 'main' : undefined}>{plaats}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTEN -->
+  <section class="section wrap flush-top" id="projecten" aria-labelledby="proj-title">
+    <div class="proj-head">
+      <div>
+        <span class="eyebrow">Projecten</span>
+        <h2 class="h2" id="proj-title">Ons werk spreekt voor zich</h2>
+      </div>
+      <p class="lead">Een greep uit wat we in {site.vestigingsplaats} en omgeving hebben opgeleverd. Klik op een project voor de werkzaamheden, het afwerkingsniveau en de doorlooptijd.</p>
+    </div>
+    <div class="proj-grid" style="margin-top:40px">
+      {opHome.map((p) => <ProjectCard project={p} />)}
+    </div>
+    <div class="proj-foot">
+      <p>{projecten.length > opHome.length ? `Bekijk alle ${projecten.length} projecten, of vraag direct een offerte aan.` : 'Staat jouw klus er niet tussen? We doen ook kleinere klussen vanaf één kamer.'}</p>
+      <div class="proj-foot-actions">
+        {projecten.length > opHome.length && <a class="btn btn-ghost" href="/projecten/">Alle projecten <Icon name="arrow" /></a>}
+        <a class="btn btn-primary" href="#offerte">Vrijblijvende offerte aanvragen <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AFWERKING -->
+  <section class="section wrap flush-top" id="afwerking" aria-labelledby="fin-title">
+    <div class="fin">
+      <div class="fin-copy">
+        <span class="eyebrow">Afwerking</span>
+        <h2 class="h2" id="fin-title">Je weet vooraf hoe strak het wordt</h2>
+        <p class="lead">In elke offerte staat het afwerkingsniveau. Zo weet je precies wat je krijgt en of je daarna kunt schilderen, behangen of meteen kunt inrichten.</p>
+        <div class="qscale" aria-label="Afwerkingsniveaus">
+          <div><b>Q2</b><span><strong>Behangklaar.</strong> Naden en schroeven weggewerkt, geschikt voor behang of structuurverf.</span></div>
+          <div><b>Q3</b><span><strong>Sausklaar.</strong> Vlak genoeg om direct te schilderen. Onze standaard.</span></div>
+          <div><b>Q4</b><span><strong>Strijklicht.</strong> Volledig geplamuurd, voor glanzende verf en scherp invallend licht.</span></div>
+        </div>
+      </div>
+      <div class="fin-photos">
+        <figure><img class="cover" src="/uploads/in-uitvoering.jpg" alt="Keuken tijdens de afbouw, met afgeplakte vloer en gereedschap" loading="lazy" style="object-position:50% 40%" /><figcaption>Tijdens de afbouw</figcaption></figure>
+        <figure><img class="cover" src="/uploads/nieuwbouw-keuken.jpg" alt="Opgeleverde keuken met strak gespoten plafond en inbouwspots" loading="lazy" style="object-position:50% 45%" /><figcaption>Opgeleverd · Q3</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIENSTEN -->
+  <section class="section wrap flush-top" id="diensten" aria-labelledby="svc-title">
+    <div class="svc">
+      <div class="svc-intro">
+        <span class="eyebrow">Diensten</span>
+        <h2 class="h2" id="svc-title">Alles voor de afbouw onder één dak</h2>
+        <p class="lead">Je hoeft niet zelf drie partijen op elkaar af te stemmen. Wij plannen wanden, plafonds en stucwerk in de juiste volgorde.</p>
+        <a class="btn btn-primary" href="#offerte">Vrijblijvende offerte aanvragen <Icon name="arrow" /></a>
+      </div>
+      <ul class="svc-list">
+        {diensten.items.map((d) => (
+          <li class="svc-item">
+            <h3>{d.naam}</h3>
+            <a class="svc-link" href="#offerte" data-werk={d.formulier_keuze}>Offerte aanvragen <Icon name="arrow" /></a>
+            <p>{d.tekst}</p>
+            {d.termen?.length > 0 && <div class="svc-terms">{d.termen.map((t) => <span>{t}</span>)}</div>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- WERKWIJZE -->
+  <section class="section proc-band" id="werkwijze" aria-labelledby="proc-title">
+    <div class="wrap">
+      <div class="proc-head">
+        <div>
+          <span class="eyebrow">Werkwijze</span>
+          <h2 class="h2" id="proc-title">Van eerste contact tot oplevering</h2>
+        </div>
+        <p class="lead">Vier stappen, zonder verrassingen. Je weet vooraf wat het kost, wanneer we komen en wanneer de ruimte klaar is.</p>
+      </div>
+      <div class="proc">
+        <div class="steps" role="tablist" aria-label="Stappen" id="steps">
+          {stappen.map((s, i) => (
+            <button class="step-tab" role="tab" id={`tab${i}`} aria-controls="stepPanel" aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-i={i} data-foto={fotoUrl(s.foto)} data-kern={s.kernzin}>
+              <span class="no">0{i + 1}</span>
+              <span><span class="h">{s.titel}</span><span class="s-body">{s.tekst}</span></span>
+            </button>
+          ))}
+        </div>
+        <div class="step-panel" role="tabpanel" id="stepPanel" aria-labelledby="tab0" aria-live="polite">
+          <img class="cover" id="stepImg" src={fotoUrl(stappen[0]?.foto)} alt="" loading="lazy" />
+          <div class="sp-card"><span class="mono" id="spLabel">Stap 1 van {stappen.length}</span><strong id="spText">{stappen[0]?.kernzin}</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section wrap" aria-labelledby="rev-title">
+    <div class="rev-head">
+      <div>
+        <span class="eyebrow">Ervaringen</span>
+        <h2 class="h2" id="rev-title">Wat opdrachtgevers over ons zeggen</h2>
+      </div>
+      <div class="score">
+        <b>{reviews.score}</b>
+        <div>
+          <div class="stars" aria-hidden="true">{[0, 1, 2, 3, 4].map(() => <Icon name="star" />)}</div>
+          <small>Gemiddeld cijfer uit<br />{reviews.aantal}</small>
+        </div>
+      </div>
+    </div>
+    <div class="rev-track" id="revTrack" tabindex="0" aria-label="Beoordelingen">
+      {reviews.items.map((r) => (
+        <article class="rev">
+          <div class="stars" aria-label="5 van 5 sterren">{[0, 1, 2, 3, 4].map(() => <Icon name="star" />)}</div>
+          <blockquote>“{r.tekst}”</blockquote>
+          <footer><span class="avatar" aria-hidden="true">{r.naam.charAt(0)}</span><div><strong>{r.naam}</strong><small>{r.project}</small></div></footer>
+        </article>
+      ))}
+    </div>
+    <div class="rev-nav">
+      <button class="round-ink" id="revPrev" aria-label="Vorige beoordeling"><Icon name="left" /></button>
+      <button class="round-ink" id="revNext" aria-label="Volgende beoordeling"><Icon name="right" /></button>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section wrap flush-top" id="vragen" aria-labelledby="faq-title">
+    <div class="faq">
+      <div class="faq-intro">
+        <span class="eyebrow">Veelgestelde vragen</span>
+        <h2 class="h2" id="faq-title">Goed om te weten</h2>
+        <p class="lead">Staat je vraag er niet bij? Zet hem in je offerteaanvraag, dan nemen we hem mee als we je bellen.</p>
+        <a class="btn btn-ghost" href="#offerte">Stel je vraag <Icon name="arrow" /></a>
+      </div>
+      <div class="faq-list">
+        {faq.items.map((f, i) => (
+          <details open={i === 0}>
+            <summary>{f.vraag}<span class="pm"><Icon name="plus" /></span></summary>
+            <div class="ans">{f.antwoord}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <OfferteForm />
+  <CtaBand />
+</Base>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  name: site.bedrijfsnaam,
+  telephone: site.telefoon,
+  email: site.email,
+  address: { '@type': 'PostalAddress', addressLocality: site.vestigingsplaats, addressCountry: 'NL' },
+  areaServed: site.werkgebied,
+  url: Astro.site?.toString(),
+})} />
+
+<script>
+  // Hero-kaart met uitgelichte projecten
+  const card = document.querySelector<HTMLElement>('.hero-card');
+  if (card) {
+    const items = JSON.parse(card.dataset.projects || '[]');
+    let i = 0;
+    const show = (n: number) => {
+      i = (n + items.length) % items.length;
+      const p = items[i];
+      const img = document.getElementById('hcImg') as HTMLImageElement;
+      img.src = p.foto;
+      img.style.objectPosition = p.pos;
+      const link = document.getElementById('hcLink') as HTMLAnchorElement;
+      link.href = p.url;
+      link.setAttribute('aria-label', `Bekijk project: ${p.titel}`);
+      document.getElementById('hcTitle')!.textContent = p.titel;
+      document.getElementById('hcSub')!.textContent = p.sub;
+    };
+    document.getElementById('hcPrev')?.addEventListener('click', () => show(i - 1));
+    document.getElementById('hcNext')?.addEventListener('click', () => show(i + 1));
+  }
+
+  // Werkwijze-tabs
+  const stepsEl = document.getElementById('steps');
+  if (stepsEl) {
+    const tabs = [...stepsEl.querySelectorAll<HTMLButtonElement>('.step-tab')];
+    tabs.forEach((t) => { const im = new Image(); im.src = t.dataset.foto!; });
+    const setStep = (n: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        t.setAttribute('aria-selected', String(j === n));
+        t.tabIndex = j === n ? 0 : -1;
+        if (j === n && focus) t.focus();
+      });
+      const t = tabs[n];
+      document.getElementById('stepPanel')!.setAttribute('aria-labelledby', t.id);
+      document.getElementById('spLabel')!.textContent = `Stap ${n + 1} van ${tabs.length}`;
+      document.getElementById('spText')!.textContent = t.dataset.kern || '';
+      (document.getElementById('stepImg') as HTMLImageElement).src = t.dataset.foto!;
+    };
+    stepsEl.addEventListener('click', (e) => {
+      const t = (e.target as HTMLElement).closest<HTMLButtonElement>('.step-tab');
+      if (t) setStep(Number(t.dataset.i));
+    });
+    stepsEl.addEventListener('keydown', (e) => {
+      const cur = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); setStep((cur + 1) % tabs.length, true); }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); setStep((cur - 1 + tabs.length) % tabs.length, true); }
+    });
+  }
+
+  // Reviews-slider
+  const track = document.getElementById('revTrack');
+  const stap = () => (track?.querySelector('.rev')?.getBoundingClientRect().width ?? 300) + 20;
+  document.getElementById('revPrev')?.addEventListener('click', () => track?.scrollBy({ left: -stap(), behavior: 'smooth' }));
+  document.getElementById('revNext')?.addEventListener('click', () => track?.scrollBy({ left: stap(), behavior: 'smooth' }));
+</script>

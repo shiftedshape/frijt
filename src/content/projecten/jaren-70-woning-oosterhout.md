@@ -1,0 +1,28 @@
+---
+titel: "Jaren-70 woning in Oosterhout"
+plaats: "Oosterhout"
+categorie: "renovatie"
+opgeleverd: "2025-11-21"
+uitgelicht: false
+oppervlakte: "110 m²"
+afwerking: "Nieuwe plafonds · sausklaar"
+doorlooptijd: "10 werkdagen"
+opdrachtgever: "Particulier"
+foto: "/uploads/renovatie-keuken.jpg"
+foto_alt: "Witte keuken met strakke wanden en plafond na renovatie"
+foto_uitsnede: "boven"
+samenvatting: "Oude structuurplafonds vervangen en scheuren hersteld, alles sausklaar opgeleverd."
+omschrijving: |-
+  In deze jaren-70 woning zaten structuurplafonds en scheuren in de wanden. We hebben de plafonds vlak gemaakt en de scheuren gewapend hersteld.
+
+  Alles is sausklaar afgewerkt, zodat de nieuwe keuken en woonkamer strak aansluiten.
+werkzaamheden:
+  - "Structuurplafonds vlak gemaakt"
+  - "Scheuren uitgehakt en gewapend hersteld"
+  - "Wanden en plafonds sausklaar"
+  - "Rond de nieuwe keuken netjes afgewerkt"
+quote:
+  tekst: "Je ziet niet meer dat het huis vijftig jaar oud is."
+  naam: "Annelies, Oosterhout"
+extra_fotos: []
+---

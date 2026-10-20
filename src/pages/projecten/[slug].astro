@@ -1,0 +1,74 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { alleProjecten, CATEGORIEEN, UITSNEDE, alineas, fotoUrl, type Project } from '../../lib';
+
+export async function getStaticPaths() {
+  const projecten = await alleProjecten();
+  return projecten.map((project) => ({ params: { slug: project.id }, props: { project, alle: projecten } }));
+}
+
+interface Props { project: Project; alle: Project[] }
+const { project, alle } = Astro.props;
+const p = project.data;
+const FORM_KEUZE: Record<string, string> = { stucwerk: 'Stucwerk', spuitwerk: 'Spuitwerk', wanden: 'Wanden & plafonds', sierpleister: 'Sierpleister', renovatie: 'Renovatie' };
+const datum = new Intl.DateTimeFormat('nl-NL', { month: 'long', year: 'numeric' }).format(p.opgeleverd);
+const specs = [
+  ['Locatie', p.plaats],
+  ['Oppervlakte', p.oppervlakte],
+  ['Afwerking', p.afwerking],
+  ['Doorlooptijd', p.doorlooptijd],
+  ['Opdrachtgever', p.opdrachtgever],
+  ['Opgeleverd', datum],
+].filter(([, v]) => v);
+const zelfde = alle.filter((x) => x.id !== project.id && x.data.categorie === p.categorie);
+const anders = alle.filter((x) => x.id !== project.id && x.data.categorie !== p.categorie);
+const meer = [...zelfde, ...anders].slice(0, 3);
+---
+<Base title={p.titel} description={p.samenvatting} image={fotoUrl(p.foto)}>
+  <article class="wrap page-top">
+    <nav class="crumbs mono" aria-label="Kruimelpad"><a href="/">Home</a><span>/</span><a href="/projecten/">Projecten</a><span>/</span><span aria-current="page">{p.titel}</span></nav>
+    <figure class="pd-hero">
+      <img class="cover" src={fotoUrl(p.foto)} alt={p.foto_alt} fetchpriority="high" style={`object-position:${UITSNEDE[p.foto_uitsnede]}`} />
+    </figure>
+    <div class="pd-body">
+      <div class="pd-main">
+        <span class="eyebrow">{CATEGORIEEN[p.categorie]}</span>
+        <h1 class="pd-title">{p.titel}</h1>
+        <p class="pd-lead">{p.samenvatting}</p>
+        {alineas(p.omschrijving).map((a) => <p class="pd-text">{a}</p>)}
+        {p.werkzaamheden.length > 0 && (
+          <>
+            <h2 class="pd-h">Wat we hebben gedaan</h2>
+            <ul class="pd-list">{p.werkzaamheden.map((w) => <li><Icon name="check" /><span>{w}</span></li>)}</ul>
+          </>
+        )}
+        {p.quote?.tekst && (
+          <blockquote class="pd-quote">“{p.quote.tekst}”{p.quote.naam && <small>{p.quote.naam}</small>}</blockquote>
+        )}
+      </div>
+      <aside class="pd-side">
+        <dl class="specs">{specs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+        <a class="btn btn-primary" href={`/?werk=${encodeURIComponent(FORM_KEUZE[p.categorie])}#offerte`}>Offerte voor een vergelijkbare klus <Icon name="arrow" /></a>
+      </aside>
+    </div>
+    {p.extra_fotos.length > 0 && (
+      <section class="pd-gallery" aria-label="Meer foto's">
+        {p.extra_fotos.map((f) => <figure><img class="cover" src={fotoUrl(f)} alt={`${p.titel}, extra foto`} loading="lazy" /></figure>)}
+      </section>
+    )}
+  </article>
+
+  {meer.length > 0 && (
+    <section class="section wrap" aria-labelledby="meer-title">
+      <div class="proj-head">
+        <h2 class="h2" id="meer-title">Meer projecten</h2>
+        <a class="btn btn-ghost" href="/projecten/">Alle projecten <Icon name="arrow" /></a>
+      </div>
+      <div class="proj-grid" style="margin-top:32px">{meer.map((x) => <ProjectCard project={x} />)}</div>
+    </section>
+  )}
+  <CtaBand />
+</Base>

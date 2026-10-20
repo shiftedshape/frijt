@@ -1,0 +1,148 @@
+---
+import Icon from './Icon.astro';
+import site from '../data/instellingen.json';
+const werkOpties = ['Stucwerk', 'Spuitwerk', 'Wanden & plafonds', 'Sierpleister', 'Renovatie', 'Weet ik nog niet'];
+---
+<section class="section wrap flush-top" id="offerte" aria-labelledby="quote-title">
+  <div class="quote">
+    <div class="quote-copy">
+      <span class="eyebrow">Offerte</span>
+      <h2 class="h2" id="quote-title">Vrijblijvende offerte aanvragen</h2>
+      <p class="lead">Vertel kort wat er moet gebeuren. Je zit nergens aan vast en de opname op locatie in {site.vestigingsplaats} en omgeving is gratis.</p>
+      <div class="next" aria-label="Wat er daarna gebeurt">
+        <div><b>01</b><span><strong>We bellen je terug</strong>Binnen 2 werkdagen, om de klus door te nemen.</span></div>
+        <div><b>02</b><span><strong>Opname op locatie</strong>We meten op en bekijken de ondergrond.</span></div>
+        <div><b>03</b><span><strong>Offerte met vaste prijs</strong>Inclusief planning en afwerkingsniveau.</span></div>
+      </div>
+      <div class="contact-lines">
+        <div><Icon name="phone" /><a href={`tel:${site.telefoon.replace(/[^\d+]/g, '')}`}>{site.telefoon}</a></div>
+        <div><Icon name="mail" /><a href={`mailto:${site.email}`}>{site.email}</a></div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div id="formWrap">
+        <h3>Vertel ons over je klus</h3>
+        <p class="sub">Duurt ongeveer twee minuten.</p>
+        <!-- Netlify Forms: Netlify herkent dit formulier tijdens de build aan data-netlify. -->
+        <form id="quoteForm" name="offerte" method="POST" action="/bedankt/" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="offerte" />
+          <input type="hidden" name="werkzaamheden" id="f-werk" value="" />
+          <p hidden><label>Niet invullen: <input name="bot-field" /></label></p>
+          <fieldset class="field">
+            <legend>Wat moet er gebeuren?</legend>
+            <div class="work-chips">
+              {werkOpties.map((w, i) => (
+                <label><input type="checkbox" name="werk" id={`w${i}`} value={w} /><span><Icon name="check" />{w}</span></label>
+              ))}
+            </div>
+          </fieldset>
+          <div class="row2">
+            <div class="field"><label for="f-size">Oppervlakte <span class="opt">(schatting)</span></label>
+              <select id="f-size" name="oppervlakte">
+                <option value="">Kies een indicatie</option>
+                <option>Eén kamer, tot 25 m²</option>
+                <option>25 – 75 m²</option>
+                <option>75 – 200 m²</option>
+                <option>Meer dan 200 m²</option>
+                <option>Weet ik nog niet</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-start">Gewenste start</label>
+              <select id="f-start" name="start">
+                <option value="">Kies een moment</option>
+                <option>Zo snel mogelijk</option>
+                <option>Binnen 1 – 3 maanden</option>
+                <option>Over 3 – 6 maanden</option>
+                <option>Nog flexibel</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label for="f-desc">Omschrijving <span class="opt">(optioneel)</span></label>
+            <textarea id="f-desc" name="omschrijving" placeholder="Bijvoorbeeld: woonkamer en hal, wanden sausklaar stucen, plafond spuiten. Verbouwing, klaar eind maart."></textarea>
+          </div>
+          <div class="field"><label for="f-file">Foto van de ruimte <span class="opt">(optioneel)</span></label>
+            <div class="file"><input id="f-file" name="foto" type="file" accept="image/*" /></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="f-name">Naam</label><input id="f-name" name="naam" type="text" autocomplete="name" required /></div>
+            <div class="field"><label for="f-place">Plaats van de klus</label><input id="f-place" name="plaats" type="text" autocomplete="address-level2" placeholder="Bijv. Breda-Princenhage" required /></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" /></div>
+            <div class="field"><label for="f-phone">Telefoon</label><input id="f-phone" name="telefoon" type="tel" autocomplete="tel" inputmode="tel" /></div>
+          </div>
+          <p class="err" id="formErr" role="alert" hidden></p>
+          <button class="btn btn-primary" type="submit" id="formSubmit">Vrijblijvende offerte aanvragen <Icon name="arrow" /></button>
+          <p class="form-note">We gebruiken je gegevens alleen om contact op te nemen over deze aanvraag.</p>
+        </form>
+      </div>
+      <div id="doneWrap" hidden>
+        <div class="done">
+          <div class="ok"><Icon name="check" /></div>
+          <h3 id="doneTitle">Bedankt!</h3>
+          <p class="sub">Je aanvraag is binnen. We bellen je binnen 2 werkdagen om de klus door te nemen.</p>
+          <dl id="doneList"></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const MAX_FOTO = 7 * 1024 * 1024; // Netlify accepteert maximaal 8 MB per aanvraag
+  const form = document.getElementById('quoteForm') as HTMLFormElement | null;
+  const err = document.getElementById('formErr')!;
+  const submitBtn = document.getElementById('formSubmit') as HTMLButtonElement;
+  const val = (id: string) => (document.getElementById(id) as HTMLInputElement).value.trim();
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+  // Vooraf aanvinken via ?werk=Stucwerk (vanaf projectpagina's) of knoppen met data-werk
+  function preselect(werk?: string | null) {
+    if (!werk) return;
+    document.querySelectorAll<HTMLInputElement>('.work-chips input').forEach((i) => { if (i.value === werk) i.checked = true; });
+  }
+  preselect(new URLSearchParams(location.search).get('werk'));
+  document.querySelectorAll<HTMLElement>('[data-werk]').forEach((el) =>
+    el.addEventListener('click', () => preselect(el.dataset.werk)),
+  );
+
+  function fout(msg: string) { err.textContent = msg; err.hidden = false; }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    const naam = val('f-name'), plaats = val('f-place'), email = val('f-email'), tel = val('f-phone');
+    const werk = [...document.querySelectorAll<HTMLInputElement>('.work-chips input:checked')].map((i) => i.value);
+    const file = (document.getElementById('f-file') as HTMLInputElement).files?.[0];
+    if (!naam) return fout('Vul je naam in, dan weten we wie we moeten bellen.');
+    if (!plaats) return fout('Vul de plaats van de klus in.');
+    if (!email && !tel) return fout('Vul een e-mailadres of telefoonnummer in, zodat we contact kunnen opnemen.');
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fout('Dit e-mailadres klopt nog niet. Controleer het even.');
+    if (file && file.size > MAX_FOTO) return fout('De foto is te groot. Kies een foto kleiner dan 7 MB of laat dit veld leeg.');
+
+    (document.getElementById('f-werk') as HTMLInputElement).value = werk.join(', ');
+    submitBtn.disabled = true;
+    submitBtn.firstChild!.textContent = 'Versturen… ';
+    try {
+      const res = await fetch('/', { method: 'POST', body: new FormData(form) });
+      if (!res.ok) throw new Error(String(res.status));
+      const rows: [string, string][] = [
+        ['Werkzaamheden', werk.join(', ') || 'Nog niet aangegeven'],
+        ['Oppervlakte', val('f-size') || 'Nog onbekend'],
+        ['Gewenste start', val('f-start') || 'Flexibel'],
+        ['Plaats', plaats],
+        ['Contact', [email, tel].filter(Boolean).join(' · ')],
+      ];
+      document.getElementById('doneTitle')!.textContent = `Bedankt, ${naam.split(' ')[0]}!`;
+      document.getElementById('doneList')!.innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
+      document.getElementById('formWrap')!.hidden = true;
+      document.getElementById('doneWrap')!.hidden = false;
+    } catch {
+      fout('Versturen lukte niet. Probeer het opnieuw, of bel of mail ons direct.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.firstChild!.textContent = 'Vrijblijvende offerte aanvragen ';
+    }
+  });
+</script>

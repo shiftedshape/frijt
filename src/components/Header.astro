@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+const links = [
+  { href: '/projecten/', label: 'Projecten' },
+  { href: '/#afwerking', label: 'Afwerking' },
+  { href: '/#diensten', label: 'Diensten' },
+  { href: '/#werkwijze', label: 'Werkwijze' },
+  { href: '/#vragen', label: 'Vragen' },
+];
+---
+<header class="site-header" id="top">
+  <div class="wrap">
+    <nav class="nav" aria-label="Hoofdmenu">
+      <a class="brand" href="/" aria-label="Frijters Afbouw, naar de homepage">
+        <img class="logo-on-light" src="/brand/logo-donker.png" alt="Frijters Afbouw" width="101" height="42" />
+        <img class="logo-on-dark" src="/brand/logo-licht.png" alt="Frijters Afbouw" width="101" height="42" />
+      </a>
+      <ul class="nav-links">
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <div class="nav-cta">
+        <a class="btn btn-primary btn-sm" href="/#offerte">Offerte aanvragen <Icon name="arrow" /></a>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menu openen"><Icon name="menu" /></button>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a class="btn btn-primary" href="/#offerte">Vrijblijvende offerte aanvragen</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector('.site-header');
+  addEventListener('scroll', () => header?.classList.toggle('scrolled', scrollY > 8), { passive: true });
+  const mb = document.getElementById('menuBtn');
+  const mm = document.getElementById('mobileMenu');
+  mb?.addEventListener('click', () => {
+    if (!mm) return;
+    const open = mm.hidden;
+    mm.hidden = !open;
+    mb.setAttribute('aria-expanded', String(open));
+  });
+  mm?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) {
+      mm.hidden = true;
+      mb?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

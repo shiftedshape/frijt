@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+import Icons from '../components/Icons.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  hideMobileCta?: boolean;
+}
+const {
+  title,
+  description = 'Frijters Afbouw: stucwerk, spuitwerk, wanden en plafonds in Breda en omgeving. Bekijk onze projecten en vraag een vrijblijvende offerte aan.',
+  image = '/uploads/betonlook-keuken.jpg',
+  hideMobileCta = false,
+} = Astro.props;
+const fullTitle = title ? `${title} | Frijters Afbouw` : 'Frijters Afbouw | Stucwerk, wanden en plafonds in Breda';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="nl_NL" />
+    <meta name="theme-color" content="#F3F2EF" />
+    <link rel="icon" type="image/png" href="/brand/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <slot name="head" />
+  </head>
+  <body>
+    <Icons />
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    {!hideMobileCta && (
+      <div class="mobile-cta" id="mobileCta">
+        <a class="btn btn-primary" href="/#offerte">Vrijblijvende offerte aanvragen <Icon name="arrow" /></a>
+      </div>
+    )}
+    <script>
+      const mc = document.getElementById('mobileCta');
+      const target = document.getElementById('offerte');
+      if (mc && target && 'IntersectionObserver' in window) {
+        new IntersectionObserver((es) => es.forEach((en) => mc.classList.toggle('away', en.isIntersecting)), { threshold: 0.15 }).observe(target);
+      }
+    </script>
+  </body>
+</html>

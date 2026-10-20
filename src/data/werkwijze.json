@@ -1,0 +1,28 @@
+{
+  "stappen": [
+    {
+      "titel": "Aanvraag & kennismaking",
+      "tekst": "Je vult de offerteaanvraag in of belt ons. We bellen je terug om de klus kort door te nemen en een opname in te plannen.",
+      "kernzin": "Binnen 2 werkdagen bellen we je terug",
+      "foto": "/uploads/zolderkeuken.jpg"
+    },
+    {
+      "titel": "Opname & offerte op maat",
+      "tekst": "We meten op locatie op en beoordelen de ondergrond. Je krijgt een heldere offerte met vaste prijs, afwerkingsniveau en planning.",
+      "kernzin": "Vaste prijs, geen verrassingen achteraf",
+      "foto": "/uploads/lichtvoute-woonkamer.jpg"
+    },
+    {
+      "titel": "Uitvoering",
+      "tekst": "Onze vaste ploeg plakt vloeren en kozijnen af en werkt volgens planning. Elke dag laten we de werkplek opgeruimd achter.",
+      "kernzin": "Eén vaste ploeg op je project",
+      "foto": "/uploads/in-uitvoering.jpg"
+    },
+    {
+      "titel": "Oplevering & nazorg",
+      "tekst": "We lopen de ruimte samen met je na en geven droogadvies. Kleine restpunten lossen we direct op.",
+      "kernzin": "Samen nalopen, restpunten direct opgelost",
+      "foto": "/uploads/nieuwbouw-keuken.jpg"
+    }
+  ]
+}

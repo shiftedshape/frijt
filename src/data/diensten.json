@@ -1,0 +1,54 @@
+{
+  "items": [
+    {
+      "naam": "Stucwerk",
+      "formulier_keuze": "Stucwerk",
+      "tekst": "Wanden en plafonds glad en vlak gestuct, in de afwerking die bij je ruimte past. Ook voor dagkanten, hoeken en kleinere reparaties.",
+      "termen": [
+        "behangklaar",
+        "sausklaar",
+        "dagkanten"
+      ]
+    },
+    {
+      "naam": "Spuitwerk",
+      "formulier_keuze": "Spuitwerk",
+      "tekst": "Snel en strak spackspuiten van wanden en plafonds. Ideaal voor nieuwbouw en grotere oppervlakken, in fijne of grove korrel.",
+      "termen": [
+        "spackspuiten",
+        "fijne korrel",
+        "nieuwbouw"
+      ]
+    },
+    {
+      "naam": "Wanden & plafonds",
+      "formulier_keuze": "Wanden & plafonds",
+      "tekst": "Metalstud scheidingswanden, voorzetwanden, verlaagde plafonds met lichtvoute en systeemplafonds. Met isolatie voor geluid en warmte waar nodig.",
+      "termen": [
+        "metalstud",
+        "lichtvoute",
+        "systeemplafond"
+      ]
+    },
+    {
+      "naam": "Sierpleister",
+      "formulier_keuze": "Sierpleister",
+      "tekst": "Betonlook, kalkpleister en andere decoratieve afwerkingen voor een wand die er echt uitspringt.",
+      "termen": [
+        "betonlook",
+        "kalkpleister",
+        "naadloos"
+      ]
+    },
+    {
+      "naam": "Renovatie & herstel",
+      "formulier_keuze": "Renovatie",
+      "tekst": "Scheuren, structuurplafonds en loszittend stucwerk in oudere woningen vakkundig hersteld, zodat oud en nieuw naadloos aansluiten.",
+      "termen": [
+        "scheurherstel",
+        "structuurplafond",
+        "lijstwerk"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Pagina niet gevonden">
+  <section class="section wrap page-top narrow">
+    <span class="eyebrow">404</span>
+    <h1 class="h2" style="margin-top:16px">Deze pagina bestaat niet (meer)</h1>
+    <p class="lead" style="margin-top:20px">Misschien is het project verplaatst of is de link verkeerd overgenomen.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px">
+      <a class="btn btn-primary" href="/">Naar de homepage <Icon name="arrow" /></a>
+      <a class="btn btn-ghost" href="/projecten/">Alle projecten</a>
+    </div>
+  </section>
+</Base>

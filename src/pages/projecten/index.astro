@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { alleProjecten, CATEGORIEEN } from '../../lib';
+
+const projecten = await alleProjecten();
+const telling = (k: string) => projecten.filter((p) => p.data.categorie === k).length;
+const filters = Object.entries(CATEGORIEEN).filter(([k]) => telling(k) > 0);
+---
+<Base title="Projecten" description="Bekijk opgeleverde projecten van Frijters Afbouw in Breda en omgeving: stucwerk, spuitwerk, wanden, plafonds, sierpleister en renovatie.">
+  <section class="section wrap page-top" aria-labelledby="proj-title">
+    <div class="proj-head">
+      <div>
+        <span class="eyebrow">Projecten</span>
+        <h1 class="h2" id="proj-title">Opgeleverd in Breda en omgeving</h1>
+      </div>
+      <p class="lead">Per project zie je wat we gedaan hebben, in welk afwerkingsniveau en hoe lang het duurde.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter projecten" id="filters">
+      <button class="chip" data-f="alle" aria-pressed="true">Alle projecten <span class="n">{projecten.length}</span></button>
+      {filters.map(([k, label]) => <button class="chip" data-f={k} aria-pressed="false">{label} <span class="n">{telling(k)}</span></button>)}
+    </div>
+    <div class="proj-grid" id="projGrid">
+      {projecten.map((p) => <ProjectCard project={p} />)}
+    </div>
+    <div class="proj-foot">
+      <p>Staat jouw klus er niet tussen? We doen ook kleinere klussen vanaf één kamer.</p>
+      <a class="btn btn-primary" href="/#offerte">Vrijblijvende offerte aanvragen <Icon name="arrow" /></a>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+
+<script>
+  const wrap = document.getElementById('filters');
+  wrap?.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('.chip');
+    if (!b) return;
+    const f = b.dataset.f;
+    wrap.querySelectorAll('.chip').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    document.querySelectorAll<HTMLElement>('#projGrid .pcard').forEach((c) => {
+      c.hidden = !(f === 'alle' || c.dataset.cat === f);
+    });
+  });
+</script>

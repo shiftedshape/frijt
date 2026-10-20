@@ -1,0 +1,46 @@
+---
+import site from '../data/instellingen.json';
+const jaar = new Date().getFullYear();
+---
+<footer class="site">
+  <div class="wrap inner">
+    <div class="foot">
+      <div>
+        <a class="brand" href="/"><img src="/brand/logo-licht.png" alt="Frijters Afbouw" width="125" height="52" /></a>
+        <p>Stucwerk, spuitwerk, wanden en plafonds voor particulieren, aannemers en projectontwikkelaars in {site.vestigingsplaats} en omgeving.</p>
+      </div>
+      <div>
+        <h4>Diensten</h4>
+        <ul>
+          <li><a href="/#diensten">Stucwerk</a></li>
+          <li><a href="/#diensten">Spuitwerk</a></li>
+          <li><a href="/#diensten">Wanden &amp; plafonds</a></li>
+          <li><a href="/#diensten">Sierpleister</a></li>
+          <li><a href="/#diensten">Renovatie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bedrijf</h4>
+        <ul>
+          <li><a href="/projecten/">Projecten</a></li>
+          <li><a href="/#werkwijze">Werkwijze</a></li>
+          <li><a href="/#vragen">Veelgestelde vragen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/#offerte">Offerte aanvragen</a></li>
+          <li><a href={`tel:${site.telefoon.replace(/[^\d+]/g, '')}`}>{site.telefoon}</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li>{site.vestigingsplaats}</li>
+          {site.kvk && <li>KvK {site.kvk}</li>}
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© {jaar} {site.bedrijfsnaam}. Alle rechten voorbehouden.</span>
+      <span>Privacyverklaring · Algemene voorwaarden</span>
+    </div>
+  </div>
+</footer>
