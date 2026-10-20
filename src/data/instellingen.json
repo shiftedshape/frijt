@@ -3,28 +3,25 @@
   "telefoon": "06 – 12 34 56 78",
   "email": "info@frijtersafbouw.nl",
   "vestigingsplaats": "Breda",
-  "hero_label": "Afbouw in Breda en omgeving",
-  "hero_titel": "Strak afgewerkt.",
-  "hero_titel_vervolg": "Specialist in totaalafbouw",
+  "hero_label": "Afbouw specialist in Breda",
+  "hero_titel": "Sterk in",
+  "hero_titel_vervolg": "afbouw.",
   "hero_tekst": "Stucwerk, spuitwerk, wanden en plafonds voor woningen, verbouwingen en bedrijfspanden in de regio Breda. Eén vaste ploeg, een heldere planning en een opgeruimde werkplek.",
   "hero_foto": "/uploads/betonlook-keuken.jpg",
   "cijfers": [
     {
-      "waarde": "350+",
-      "label": "projecten opgeleverd"
+      "waarde": "45+",
+      "label": "Projecten opgeleverd"
     },
     {
-      "waarde": "18 jaar",
-      "label": "ervaring in de afbouw"
+      "waarde": "7 jaar",
+      "label": "Ervaring in de afbouw"
     },
     {
-      "waarde": "9,4",
-      "label": "gemiddelde klantscore"
+      "waarde": "30+",
+      "label": "tevreden klanten"
     },
-    {
-      "waarde": "2 dagen",
-      "label": "tot je offerte in de mail"
-    }
+    {}
   ],
   "intro_tekst": "Frijters Afbouw maakt van kale muren en ruwe plafonds ruimtes die klaar zijn om in te wonen en te werken.",
   "intro_tekst_vervolg": "Eén aanspreekpunt van opname tot oplevering, een vaste prijs vooraf en een werkplek die we elke dag schoon achterlaten.",
